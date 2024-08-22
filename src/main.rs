@@ -9,6 +9,7 @@ fn App() -> impl IntoView {
             on:click=move |_| {
                 set_count.update(|n| *n += 1)
             }
+            class:red=move || count() % 2 == 1  // Changes the class based on the value of count.
         >
             "Click me: "
             {count} // Identical to {move || count()}
