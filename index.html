@@ -7,12 +7,21 @@
     <style>
         .red {
             color: red;
+            &::before {
+                content: "(";
+            }
+            &::after {
+                content: ")";
+            }
         }
-        .red::before {
-            content: "(";
-        }
-        .red::after {
-            content: ")";
+        .blue-21 {
+            color: blue;
+            &::before {
+                content: "[";
+            }
+            &::after {
+                content: "]";
+            }
         }
     </style>
 </head>
