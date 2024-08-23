@@ -1,5 +1,11 @@
 use leptos::*;
 use rand::Rng;
+use std::marker::PhantomData;
+
+#[component]
+fn SizeOf<T: Sized>(#[prop(optional)] _ty: PhantomData<T>) -> impl IntoView {
+    std::mem::size_of::<T>()
+}
 
 /*
 Adds a progress bar with a maximum count of 100.
@@ -8,7 +14,7 @@ Adds a progress bar with a maximum count of 100.
 fn ProgressBar(
     #[prop(default = 100)] // Replace default with 'optional' if no default needed.
     max: u16,
-    progress: ReadSignal<i32>,
+    progress: impl Fn() -> i32 + 'static,
 ) -> impl IntoView {
     view! {
         <progress
@@ -23,7 +29,7 @@ The main component, demonstrating how attributes can dynamically
 be manipulated:
  */
 #[component]
-fn App() -> impl IntoView {
+pub fn App() -> impl IntoView {
     let mut rng = rand::thread_rng();
     let max_value = 20;
     let (count, set_count) = create_signal(0);
@@ -59,6 +65,10 @@ fn App() -> impl IntoView {
         "-"
         </button>
         </fieldset>
+        "Usize: "<SizeOf<usize>/><br/>
+        "Usize: " {usize::MAX}
+
+        "String: " <SizeOf<String>/>
     }
 }
 
