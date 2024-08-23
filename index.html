@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leptos Tutorial</title>
     <style>
+        :root {
+            font-size: 12px;
+            --base-radius: 10px;
+        }
         body, html {
             padding: 0;
             margin: 0;
@@ -18,23 +22,14 @@
             align-content: space-around;
             align-items: center;
         }
-        .red {
-            color: red;
-            &::before {
-                content: "(";
-            }
-            &::after {
-                content: ")";
-            }
+        .counter {
+            width: 10rem;
+            text-align: center;
+            vertical-align: middle;
         }
-        .blue-21 {
-            color: blue;
-            &::before {
-                content: "[";
-            }
-            &::after {
-                content: "]";
-            }
+        .buttons {
+            display: inline-flex;
+            justify-content: space-around;
         }
     </style>
 </head>
