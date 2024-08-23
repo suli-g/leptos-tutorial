@@ -1,9 +1,8 @@
 use leptos::*;
 use rand::Rng;
 
-/*
-Adds a progress bar with a maximum count of 100.
-*/
+
+/// Adds a progress bar with a maximum count of 100.
 #[component]
 fn ProgressBar(
     #[prop(default = 100)] // Replace default with 'optional' if no default needed.
@@ -18,10 +17,9 @@ fn ProgressBar(
     }
 }
 
-/*
-The main component, demonstrating how attributes can dynamically
-be manipulated:
- */
+
+/// The main component, demonstrating how attributes can dynamically
+/// be manipulated.
 #[component]
 pub fn App() -> impl IntoView {
     let mut rng = rand::thread_rng();
@@ -59,6 +57,7 @@ pub fn App() -> impl IntoView {
     }
 }
 
+/// The main application implementation.
 fn main() {
     // Enable understandable errors in the browser console.
     console_error_panic_hook::set_once();
