@@ -1,5 +1,17 @@
 use leptos::*;
 
+/*
+Adds a progress bar with a maximum count of 100.
+*/
+#[component]
+fn ProgressBar(progress: ReadSignal<i32>) -> impl IntoView {
+    view! {
+        <progress
+            max="100"
+            value=progress
+        />
+    }
+}
 
 /*
 The main component, demonstrating how attributes can dynamically
@@ -8,11 +20,9 @@ be manipulated:
 #[component]
 fn App() -> impl IntoView {
     let (count, set_count) = create_signal(0);
-    let double_count = move || count() * 2;
     view! {
-        <progress
-            max="100"
-            value=double_count // derived signal.
+        <ProgressBar
+            progress=count
         />
         <button
             on:click=move |_| {
