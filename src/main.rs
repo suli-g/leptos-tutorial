@@ -1,11 +1,5 @@
 use leptos::*;
 use rand::Rng;
-use std::marker::PhantomData;
-
-#[component]
-fn SizeOf<T: Sized>(#[prop(optional)] _ty: PhantomData<T>) -> impl IntoView {
-    std::mem::size_of::<T>()
-}
 
 /*
 Adds a progress bar with a maximum count of 100.
@@ -14,7 +8,7 @@ Adds a progress bar with a maximum count of 100.
 fn ProgressBar(
     #[prop(default = 100)] // Replace default with 'optional' if no default needed.
     max: u16,
-    progress: impl Fn() -> i32 + 'static,
+    #[prop(into)] progress: Signal<i32>,
 ) -> impl IntoView {
     view! {
         <progress
@@ -36,7 +30,10 @@ pub fn App() -> impl IntoView {
     let guess: i32 = rng.gen_range(0..max_value);
     view! {
         <ProgressBar
-            progress=count
+            progress=Signal::derive(count)
+        />
+        <ProgressBar
+            progress=move || guess
         />
         <div
             class="counter"
@@ -45,30 +42,20 @@ pub fn App() -> impl IntoView {
             style=move || format!("border-radius: calc(var(--base-radius) + {0}px) ; background-color: rgba(0, calc({0} * 25), 0, calc({0} / 100))", <i32>::abs(count() - guess))
             style:border=move || if count() == guess { "1px solid red" } else {"none"}
         >
-        <h1
-        
-        >{count}</h1> // Identical to {move || count()}
+            <h1>{count}</h1> // Identical to {move || count()}
         </div>
         <fieldset class="buttons">
         <button
-        on:click=move |_| {
-            set_count.update(|n| *n += 1)
-        }
+            on:click=move |_| {set_count.update(|n| *n += 1)}
         >
         "+"
         </button>
         <button
-        on:click=move |_| {
-            set_count.update(|n| *n -= 1)
-        }
+            on:click=move |_| {set_count.update(|n| *n -= 1)}
         >
         "-"
         </button>
         </fieldset>
-        "Usize: "<SizeOf<usize>/><br/>
-        "Usize: " {usize::MAX}
-
-        "String: " <SizeOf<String>/>
     }
 }
 
