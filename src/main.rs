@@ -4,10 +4,14 @@ use leptos::*;
 Adds a progress bar with a maximum count of 100.
 */
 #[component]
-fn ProgressBar(progress: ReadSignal<i32>) -> impl IntoView {
+fn ProgressBar(
+    #[prop(default=100)] // Replace default with 'optional' if no default needed.
+    max: u16,
+    progress: ReadSignal<i32>,
+) -> impl IntoView {
     view! {
         <progress
-            max="100"
+            max=max
             value=progress
         />
     }
